@@ -179,7 +179,10 @@ async function aiBotReq(option) {
         }
         return { data: localConfigs[option.url] }
       }
-      console.log(`本地配置源未找到节点 ${option.url}, 将从配置平台拉取`)
+
+      if (option.url !== '/wechat/heart') {
+        console.log(`本地配置源未找到节点 ${option.url}, 将从配置平台拉取`)
+      }
     }
     return get({ url: AIBOTK + option.url, params, contentType: option.contentType, platform: option.platform || 'aibot' })
   }

@@ -1,6 +1,6 @@
 {
   "name": "@ggcorp/wechaty-web-panel",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "增强智能微秘书插件",
   "exports": {
     ".": {
