@@ -3,7 +3,14 @@ import { getFormatQuery } from '../lib/index.js'
 import { getAibotConfig } from '../db/aiDb.js'
 import { AIBOTK, TXHOST } from './config.js'
 import { allConfig } from '../db/configDb.js'
+import { readFile } from 'fs/promises'
 import axios from 'axios'
+
+// 'N' 表示不使用，其他都表示使用
+const useLocalConfig = process.env['USE_LOCAL_CONFIG'] || 'Y'
+
+let localConfigs = null
+
 const service = axios.create({
   // 定义统一的请求头部
   headers: {
@@ -70,7 +77,7 @@ function get({ url, params, contentType = 'application/json', platform = 'tx', a
             resolve(res.text)
           } else {
             // 如果是非爬虫，返回格式化后的内容
-            res = res && res.text && JSON.parse(res.text) || {}
+            res = (res && res.text && JSON.parse(res.text)) || {}
             if (platform !== 'chuan') {
               if ((res.code !== 200 && platform === 'tx') || (res.code !== 200 && platform === 'aibot') || (res.code !== 0 && platform === 'qi') || (res.code !== 100000 && platform === 'tl')) {
                 console.error(`接口${url}请求失败`, res.msg || res.text)
@@ -106,7 +113,7 @@ function post({ url, params, contentType = 'application/json', authorization = '
             resolve(res.text)
           } else {
             // 如果是非爬虫，返回格式化后的内容
-            res = res && res.text && JSON.parse(res.text) || {}
+            res = (res && res.text && JSON.parse(res.text)) || {}
             if (platform !== 'chuan') {
               if ((res.code !== 200 && platform === 'tx') || (res.code !== 200 && platform === 'aibot') || (res.code !== 100000 && platform === 'tl')) {
                 console.error(`接口请求失败${url}`, res.msg || res.text || res.error)
@@ -151,6 +158,29 @@ async function aiBotReq(option) {
   if (option.method === 'POST') {
     return post({ url: AIBOTK + option.url, params, contentType: 'application/json;charset=utf-8', platform: option.platform || 'aibot' })
   } else {
+    if (useLocalConfig !== 'N') {
+      if (!localConfigs) {
+        try {
+          localConfigs = JSON.parse(await readFile('localConfigs.json'))
+        } catch (error) {
+          console.log('读取本地配置文件失败：', error)
+        }
+      }
+
+      if (localConfigs && localConfigs[option.url]) {
+        console.log(`从本地配置源找到 ${option.url}`)
+        // 特殊处理 /wechat/config
+        if (option.url === '/wechat/config') {
+          return {
+            data: {
+              config: JSON.stringify(localConfigs[option.url].config),
+            },
+          }
+        }
+        return { data: localConfigs[option.url] }
+      }
+      console.log(`本地配置源未找到节点 ${option.url}, 将从配置平台拉取`)
+    }
     return get({ url: AIBOTK + option.url, params, contentType: option.contentType, platform: option.platform || 'aibot' })
   }
 }
