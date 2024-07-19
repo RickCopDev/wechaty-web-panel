@@ -9,3 +9,5 @@ README_zh-CN.md
 src/
 coverage
 index.template.js
+localConfigs.json
+*.memory-card.json

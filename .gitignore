@@ -26,3 +26,6 @@ npm-debug.log
 *.template.js
 dist
 *.db
+
+# local config data
+localConfigs.json

@@ -1,7 +1,7 @@
 {
-  "name": "wechaty-web-panel",
-  "version": "1.6.59",
-  "description": "智能微秘书插件",
+  "name": "@ggcorp/wechaty-web-panel",
+  "version": "1.0.0",
+  "description": "增强智能微秘书插件",
   "exports": {
     ".": {
       "import": "./dist/esm/src/index.js",
@@ -17,7 +17,8 @@
     "test:wechat": "node test/wechat.js",
     "test:wework": "node test/wework.js",
     "release": "verpub publish",
-    "release:dry": "verpub --dry-run"
+    "release:dry": "verpub --dry-run",
+    "release_npm": "npm publish --access public"
   },
   "keywords": [
     "定时发送",
@@ -39,13 +40,12 @@
     "openGPT"
   ],
   "author": {
-    "name": "Leo_chen",
-    "url": "http://www.xkboke.com",
-    "email": "leo.gengchen@foxmail.com"
+    "name": "Rick",
+    "email": "ggrick0125@gmail.com"
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/leochen-g/wechaty-web-panel"
+    "url": "https://github.com/RickCopDev/wechaty-web-panel"
   },
   "license": "MIT",
   "devDependencies": {

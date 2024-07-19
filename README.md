@@ -1,3 +1,18 @@
+# @ggcorp Wechaty Web Panel
+
+本项目基于 Wechaty Web Panel v1.6.59, 增加了本地文件作为配置平台，移除部分 vip 功能对微秘书平台的依赖。
+
+## 设置环境变量
+
+```shell
+# 'N' 表示不使用本地文件作为配置平台，其他表示优先使用本地文件作为配置平台
+export USE_LOCAL_CONFIG=N
+```
+
+## 配置自己的本地配置文件
+
+创建一个 `localConfigs.json` 放在项目根目录下。
+
 # Wechaty Web Panel
 
 [![Wechaty Plugin Web Panel](https://img.shields.io/badge/Wechaty%20Plugin-WebPanel-brightgreen.svg)](https://github.com/gengchen528/wechaty-web-panel)
@@ -20,52 +35,55 @@ npm install # 可指定淘宝镜像源加速: --registry=https://registry.npmmir
 
 ### 测试微信
 
-在 test/wechat.js文件中填入apiKey与apiSecret，运行如下命令
+在 test/wechat.js 文件中填入 apiKey 与 apiSecret，运行如下命令
+
 ```sh
 npm run test:wechat
 ```
 
 ### 测试企业微信
-需要有企业微信token，在test/wework.js填入workProToken、apiKey与apiSecret，运行如下命令
+
+需要有企业微信 token，在 test/wework.js 填入 workProToken、apiKey 与 apiSecret，运行如下命令
+
 ```sh
 npm run test:wework
 ```
 
 ## 面板主要功能
 
-* 定时提醒
+- 定时提醒
 
-- [x] 当天定时提醒 例："提醒 我 18:00 下班了，记得带好随身物品"
-- [x] 每天定时提醒 例："提醒 我 每天 18:00 下班了，记得带好随身物品"
-- [x] 指定日期提醒 例："提醒 我 2019-05-10 8:00 还有 7 天是女朋友生日了，准备一下"
+* [x] 当天定时提醒 例："提醒 我 18:00 下班了，记得带好随身物品"
+* [x] 每天定时提醒 例："提醒 我 每天 18:00 下班了，记得带好随身物品"
+* [x] 指定日期提醒 例："提醒 我 2019-05-10 8:00 还有 7 天是女朋友生日了，准备一下"
 
-* 智能机器人
+- 智能机器人
 
-- [x] 天行机器人
-- [x] 图灵机器人
-- [x] 腾讯闲聊机器人
-- [x] ChatGPT api (支持切换模型)
-- [x] ChatGPT 网页hook
-- [x] 微信对话开放平台
-- [x] Dify 平台和FastGPT无缝适配
-- [x] GPT-4V识图功能
-- [ ] 更多
+* [x] 天行机器人
+* [x] 图灵机器人
+* [x] 腾讯闲聊机器人
+* [x] ChatGPT api (支持切换模型)
+* [x] ChatGPT 网页 hook
+* [x] 微信对话开放平台
+* [x] Dify 平台和 FastGPT 无缝适配
+* [x] GPT-4V 识图功能
+* [ ] 更多
 
-* 定时任务
+- 定时任务
 
-- [x] 新闻定时发送
-- [x] 倒计时提醒
-- [x] 自定义内容定时发送
-- [x] 个性化内容定制
-- [x] 微信每日说,定时给女朋友和群友发送每日天气提醒，以及每日一句
-- [ ] 更多功能等你来 pr
+* [x] 新闻定时发送
+* [x] 倒计时提醒
+* [x] 自定义内容定时发送
+* [x] 个性化内容定制
+* [x] 微信每日说,定时给女朋友和群友发送每日天气提醒，以及每日一句
+* [ ] 更多功能等你来 pr
 
-* 技能中心
+- 技能中心
 
-- [x] 关键词加好友
-- [x] 关键词加群，群欢迎词设置
-- [x] 关键词回复
-- [x] 关键词事件
+* [x] 关键词加好友
+* [x] 关键词加群，群欢迎词设置
+* [x] 关键词回复
+* [x] 关键词事件
   - [x] 天气查询 例："上海天气"
   - [x] 垃圾分类 例："?香蕉皮"
   - [x] 名人名言 例： "名人名言"
@@ -76,29 +94,30 @@ npm run test:wework
   - [x] 获取表情包 例： "表情包你好坏"
   - [x] 获取美女图 例： "美女图"
   - [x] 群合影 例： "群合影"
-  ~~- [x] 牛年头像 例： "牛气冲天"~~
-  ~~- [x] 国旗头像 例： "我要国旗"(下线)~~
+        ~~- [x] 牛年头像 例： "牛气冲天"~~
+        ~~- [x] 国旗头像 例： "我要国旗"(下线)~~
   - [ ] 更多待你发现
-- [x] 进群自动欢迎
-- [x] 加好友自动回复
-- [x] 自定义回调事件
-- [x] 私聊消息同步到群或好友
+* [x] 进群自动欢迎
+* [x] 加好友自动回复
+* [x] 自定义回调事件
+* [x] 私聊消息同步到群或好友
 
-* 自动更新配置文件，无需重启
+- 自动更新配置文件，无需重启
 
-- [x] 默认给机器人发送 ‘更新’ 触发拉取新配置文件操作，可在面板`小助手配置->关键词回复->关键词事件`进行修改关键词
+* [x] 默认给机器人发送 ‘更新’ 触发拉取新配置文件操作，可在面板`小助手配置->关键词回复->关键词事件`进行修改关键词
 
-* 特色功能
+- 特色功能
 
 ~~- [x] 群合影(下线)~~
+
 - [x] 主动发送消息
 - [x] 主动更新配置
 - [x] 主动同步好友和群列表
 - [x] 跨群聊天，打通多群沟通
 - [x] 回调事件
 - [x] 群发助手，转发助手
-- [x] openapi请求
-- [x] rss订阅推送
+- [x] openapi 请求
+- [x] rss 订阅推送
 
 更多详情介绍：[传送门](https://help.aibotk.com/?plugin=czw_emDoc&post=2)
 
@@ -123,28 +142,29 @@ npm run test:wework
 2、申请接口权限
 
 必选接口
-* [天行机器人](https://www.tianapi.com/apiview/47)
-* [天气](https://www.tianapi.com/apiview/72)
-* [新闻](https://www.tianapi.com/apiview/51)
-* [垃圾分类](https://www.tianapi.com/apiview/97)
-  
+
+- [天行机器人](https://www.tianapi.com/apiview/47)
+- [天气](https://www.tianapi.com/apiview/72)
+- [新闻](https://www.tianapi.com/apiview/51)
+- [垃圾分类](https://www.tianapi.com/apiview/97)
+
 可选接口（如果想使用相应的功能还是必须申请的），但是如果默认使用了天行机器人，以下功能接口无需申请也可以，机器人会直接返回对应信息
 
-* [土味情话](https://www.tianapi.com/apiview/80)
-* [名人名言](https://www.tianapi.com/apiview/92)
-* [星座运势](https://www.tianapi.com/apiview/78)
-* [姓氏起源](https://www.tianapi.com/apiview/94)
-* [顺口溜](https://www.tianapi.com/apiview/54)
-* [老黄历](https://www.tianapi.com/apiview/45)
-* [神回复](https://www.tianapi.com/apiview/39)
-* [歇后语](https://www.tianapi.com/apiview/38)
-* [绕口令](https://www.tianapi.com/apiview/37)
-* [疫情](https://www.tianapi.com/apiview/169)
-* [网络取名](https://www.tianapi.com/apiview/36)
+- [土味情话](https://www.tianapi.com/apiview/80)
+- [名人名言](https://www.tianapi.com/apiview/92)
+- [星座运势](https://www.tianapi.com/apiview/78)
+- [姓氏起源](https://www.tianapi.com/apiview/94)
+- [顺口溜](https://www.tianapi.com/apiview/54)
+- [老黄历](https://www.tianapi.com/apiview/45)
+- [神回复](https://www.tianapi.com/apiview/39)
+- [歇后语](https://www.tianapi.com/apiview/38)
+- [绕口令](https://www.tianapi.com/apiview/37)
+- [疫情](https://www.tianapi.com/apiview/169)
+- [网络取名](https://www.tianapi.com/apiview/36)
 
 ## 开始
 
-> 环境node > 16
+> 环境 node > 16
 
 ### Step 1: 安装
 
