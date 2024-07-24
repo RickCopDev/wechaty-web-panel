@@ -11,3 +11,4 @@ coverage
 index.template.js
 localConfigs.json
 *.memory-card.json
+_*.json

@@ -14,7 +14,7 @@
     "clean": "shx rm -fr dist/*",
     "dist": "npm-run-all clean build dist:commonjs",
     "dist:commonjs": "jq -n \"{ type: \\\"commonjs\\\" }\" > dist/cjs/package.json",
-    "test:wechat": "node test/wechat.js",
+    "test:wechat": "USE_LOCAL_CONFIG=Y node test/wechat.js",
     "test:wework": "node test/wework.js",
     "release": "verpub publish",
     "release:dry": "verpub --dry-run",

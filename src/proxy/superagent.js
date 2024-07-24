@@ -3,11 +3,14 @@ import { getFormatQuery } from '../lib/index.js'
 import { getAibotConfig } from '../db/aiDb.js'
 import { AIBOTK, TXHOST } from './config.js'
 import { allConfig } from '../db/configDb.js'
-import { readFile } from 'fs/promises'
+import { readFile, writeFile } from 'fs/promises'
 import axios from 'axios'
+import { writeFileSync } from 'fs'
 
-// 'N' 表示不使用，其他都表示使用
+// 'N' 表示不使用本地配置平台，其他都表示使用
 const useLocalConfig = process.env['USE_LOCAL_CONFIG'] || 'Y'
+// 当使用微秘书配置平台时，需要忽略存储的请求
+const ignoreEndpoints = ['/wechat/heart', '/worker/verifycode', '/worker/clearverifycode', '/wechat/qrcode']
 
 let localConfigs = null
 
@@ -81,6 +84,16 @@ function get({ url, params, contentType = 'application/json', platform = 'tx', a
             if (platform !== 'chuan') {
               if ((res.code !== 200 && platform === 'tx') || (res.code !== 200 && platform === 'aibot') || (res.code !== 0 && platform === 'qi') || (res.code !== 100000 && platform === 'tl')) {
                 console.error(`接口${url}请求失败`, res.msg || res.text)
+              }
+            }
+            const endpoint = url.replace(AIBOTK, '')
+            // if read from the platfrom, store the server values.
+            if (res && useLocalConfig === 'N' && !ignoreEndpoints.includes(endpoint)) {
+              try {
+                writeFileSync(`${endpoint.replace(/\//g, '_')}.json`, JSON.stringify(res))
+                console.log(`platform config for ${endpoint} has been stored.`)
+              } catch (error) {
+                console.log(`An error ${error} has occurred when writing platform config for ${endpoint}`)
               }
             }
             resolve(res)

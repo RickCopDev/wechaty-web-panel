@@ -29,3 +29,4 @@ dist
 
 # local config data
 localConfigs.json
+_*.json
